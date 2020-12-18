@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Ghost Theme
+        uses: TryGhost/action-deploy-theme@v1.4.0
+        with:
+          api-url: https://ghost-ingresss.airlan.cv.ua
+          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
