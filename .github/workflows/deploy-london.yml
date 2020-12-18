@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+      - run: npm config set strict-ssl false
       - name: Deploy Ghost Theme
         uses: TryGhost/action-deploy-theme@v1.4.0
         with:
