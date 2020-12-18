@@ -9,5 +9,5 @@ jobs:
       - name: Deploy Ghost Theme
         uses: TryGhost/action-deploy-theme@v1.4.0
         with:
-          api-url: https://ghost-ingress.airlan.cv.ua
+          api-url: https://ghost-ingress3.airlan.cv.ua
           api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
