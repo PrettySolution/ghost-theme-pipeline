@@ -7,24 +7,28 @@ on:
 env:
     DOMAIN: airlan.cv.ua
 jobs:
-    set_env:
-        environment:
-            name: teta3
-            url: ${{steps.env_info.outputs.env_url}}
-        runs-on: self-hosted
-        outputs:
-            url_output: ${{ steps.env_info.outputs.env_url }}
-        steps:
-            - id: env_info
-              run: echo "::set-output name=env_url::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
+#    set_env:
+#        environment:
+#            name: teta3
+#            url: ${{steps.env_info.outputs.env_url}}
+#        runs-on: self-hosted
+#        outputs:
+#            url_output: ${{ steps.env_info.outputs.env_url }}
+#        steps:
+#            - id: env_info
+#              run: echo "::set-output name=env_url::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
+#
+#    job_2:
+#        environment:
+#            name: teta4
+#            url: ${{needs.set_env.outputs.url_output}}
+#        runs-on: self-hosted
+#        needs: set_env
+#        steps:
+#            - run: echo ${{toJson(github.ref)}}
+#            - run: echo ${{needs.set_env.outputs.url_output}}
 
-    job_2:
-        environment:
-            name: teta4
-            url: ${{needs.set_env.outputs.url_output}}
+    job_3:
         runs-on: self-hosted
-        needs: set_env
         steps:
             - run: echo ${{toJson(github.ref)}}
-            - run: echo ${{needs.set_env.outputs.url_output}}
-
