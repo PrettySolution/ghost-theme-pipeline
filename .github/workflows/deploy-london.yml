@@ -5,6 +5,7 @@ on:
       - master
 env:
   NODE_TLS_REJECT_UNAUTHORIZED: 0
+
 jobs:
   deploy:
     runs-on: self-hosted
@@ -12,10 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-
       - name: Deploy Ghost Theme
         uses: TryGhost/action-deploy-theme@v1.4.0
         with:
