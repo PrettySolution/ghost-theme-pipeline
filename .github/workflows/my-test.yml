@@ -8,6 +8,7 @@ env:
     DOMAIN: airlan.cv.ua
 jobs:
     job_1:
+        environment: ${{steps.step_1.outputs.test}}
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
@@ -16,7 +17,7 @@ jobs:
               run: echo "::set-output name=test::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
 
     job_2:
-        environment: ${{needs.job_1.outputs.output_1}}
+#        environment: ${{needs.job_1.outputs.output_1}}
         runs-on: self-hosted
         needs: job_1
         steps:
