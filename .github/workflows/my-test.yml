@@ -1,4 +1,4 @@
-name: my-test
+name: my-env_url
 #on: [pull_request]
 on:
     push:
@@ -7,15 +7,23 @@ on:
 env:
     DOMAIN: airlan.cv.ua
 jobs:
-    job_1:
+    set_env:
         environment:
             name: teta3
-            url: ${{theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN}}
+            url: ${{steps.env_info.outputs.env_url}}
         runs-on: self-hosted
         outputs:
-            output_1: ${{ steps.step_1.outputs.test }}
+            env_url_output: ${{ steps.env_info.outputs.env_url }}
         steps:
-            - id: step_1
-              run: echo "::set-output name=test::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
+            - id: env_info
+              run: echo "::set-output name=env_url::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
 
+    job_2:
+        environment:
+            name: teta4
+            url: ${{needs.set_env.outputs.env_url_output}}
+        runs-on: self-hosted
+        needs: set_env
+        steps:
+            - run: echo ${{needs.set_env.outputs.env_url_output}}
 
