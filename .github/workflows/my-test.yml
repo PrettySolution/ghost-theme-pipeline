@@ -30,6 +30,8 @@ jobs:
 
     job_3:
         runs-on: self-hosted
+        environment: ${{env.REF}}
         steps:
             - run: echo theme-${GITHUB_REF##*/}-london.$DOMAIN
-            - run: echo ${{github.ref##*/}}
+            - run: echo "REF=${GITHUB_REF##*/}" >> $GITHUB_ENV
+            - run: echo ${{env.REF}}
