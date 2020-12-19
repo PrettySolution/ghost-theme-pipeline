@@ -34,7 +34,7 @@ jobs:
             name: testing
             url: ${{env.RELEASE_REF}}
         steps:
-            - run: echo "RELEASE_REF=theme-${GITHUB_REF##*/}-london.$DOMAIN" >> $GITHUB_ENV
+            - run: echo "RELEASE_REF=theme-${${GITHUB_REF##*/}//./-}-london.$DOMAIN" >> $GITHUB_ENV
             - run: echo ${RELEASE_REF//./-}
 
 
