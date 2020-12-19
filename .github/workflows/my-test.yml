@@ -8,7 +8,7 @@ env:
     DOMAIN: airlan.cv.ua
 jobs:
     job_1:
-        environment: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        environment: ${{ 2+2 }}
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
