@@ -1,7 +1,9 @@
 name: my-test
 #on: [pull_request]
 on:
-    tags:
+    push:
+        tags:
+            - '*'
         branches-ignore:
             - 'master'
 
