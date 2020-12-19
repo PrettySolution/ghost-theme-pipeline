@@ -4,6 +4,4 @@ jobs:
     my-test:
         runs-on: self-hosted
         steps:
-            - run: echo $GITHUB_HEAD_REF
-            - run: echo $GITHUB_BASE_REF
-            - run: echo ${GITHUB_SHA::8}
+            - run: echo $GITHUB_HEAD_REF-${GITHUB_SHA::8}
