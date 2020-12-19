@@ -16,7 +16,7 @@ jobs:
 #            url_output: ${{ steps.env_info.outputs.env_url }}
 #        steps:
 #            - id: env_info
-#              run: echo "::set-output name=env_url::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
+#              run: echo "::set-output name=env_url::theme-${GITHUB_REF##*/}-london.$DOMAIN"
 #
 #    job_2:
 #        environment:
@@ -32,4 +32,4 @@ jobs:
         runs-on: self-hosted
         steps:
             - run: echo theme-${GITHUB_REF##*/}-london.$DOMAIN
-#            - run: echo ${{toJson(github.ref##*/)}}
+            - run: echo ${{github.ref##*/}}
