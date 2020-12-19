@@ -1,8 +1,9 @@
 name: my-test
 #on: [pull_request]
 on: [push]
-environment: testing
+
 jobs:
+    environment: testing
     my-test:
         runs-on: self-hosted
         steps:
