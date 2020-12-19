@@ -1,4 +1,8 @@
-on: [push]
+name: Deploy Theme
+on:
+  push:
+    branches:
+      - master
 env:
   NODE_TLS_REJECT_UNAUTHORIZED: 0
 jobs:
