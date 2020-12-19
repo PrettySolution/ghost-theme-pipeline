@@ -1,10 +1,15 @@
 name: my-test
 #on: [pull_request]
-on: [push]
+on:
+    push:
+        tags:
+            - '*'
+        branches-ignore:
+            - 'master'
 
 jobs:
     my-test:
-        environment: testing2
+        environment: testing
         runs-on: self-hosted
         steps:
             - run: echo london-$GITHUB_HEAD_REF-${GITHUB_SHA::8}-pr$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-to-$GITHUB_BASE_REF
