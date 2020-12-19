@@ -20,5 +20,5 @@ jobs:
         runs-on: self-hosted
         needs: job_1
         steps:
-            - run: echo ${{jobs.job_1.outputs.output_1}}
+            - run: echo ${{steps.step_1.outputs.test}}
 
