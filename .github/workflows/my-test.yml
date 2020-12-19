@@ -8,7 +8,9 @@ env:
     DOMAIN: airlan.cv.ua
 jobs:
     job_1:
-        environment: ${{steps.step_1.outputs.test}}
+        environment:
+            name: ${{steps.step_1.outputs.test}}
+            url: https://github.com
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
