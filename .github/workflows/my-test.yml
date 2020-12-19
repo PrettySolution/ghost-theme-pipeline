@@ -2,10 +2,8 @@ name: my-test
 #on: [pull_request]
 on:
     push:
-        branches:
-            - 'master'
         tags:
-            - '*'
+            - 'v.*'
 
 jobs:
     my-test:
