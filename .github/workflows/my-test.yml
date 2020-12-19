@@ -14,9 +14,9 @@ jobs:
         steps:
             - id: step_1
               run: echo "::set-output name=test::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
-#            - run: echo london-$GITHUB_HEAD_REF-${GITHUB_SHA::8}-pr$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-to-$GITHUB_BASE_REF
-            - run: echo theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN
+
     job_2:
+        environment: ${{needs.job_1.outputs.output_1}}
         runs-on: self-hosted
         needs: job_1
         steps:
