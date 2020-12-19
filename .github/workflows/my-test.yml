@@ -3,8 +3,5 @@ on: [push]
 jobs:
     my-test:
         runs-on: self-hosted
-        #    runs-on: ubuntu-latest
         steps:
-            #      - uses: actions/checkout@v2
-            #      - uses: actions/setup-node@v1
-            - run: msts
+            - run: microk8s.status
