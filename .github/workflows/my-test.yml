@@ -4,8 +4,8 @@ on:
     push:
         tags:
             - '*'
-        branches-ignore:
-            - 'master'
+        branches:
+            - '!*'
 
 jobs:
     my-test:
