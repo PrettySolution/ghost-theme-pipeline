@@ -32,8 +32,7 @@ jobs:
         runs-on: self-hosted
         environment:
             name: ref
-            url: ${{env.REF}}
+            url: ${{env.RELEASE_REF}}
         steps:
-            - run: echo theme-${GITHUB_REF##*/}-london.$DOMAIN
-            - run: echo "REF=${GITHUB_REF##*/}" >> $GITHUB_ENV
-            - run: echo ${{env.REF}}
+            - run: echo "RELEASE_REF=theme-${GITHUB_REF##*/}-london.$DOMAIN" >> $GITHUB_ENV
+
