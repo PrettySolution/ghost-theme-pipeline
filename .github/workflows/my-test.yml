@@ -9,8 +9,8 @@ env:
 jobs:
     job_1:
         environment:
-            name: ${{steps.step_1.outputs.test}}
-            url: https://github.com
+            name: teta3
+            url: ${{steps.step_1.outputs.test}}
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
