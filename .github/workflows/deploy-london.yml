@@ -5,6 +5,7 @@ jobs:
   deploy:
     runs-on: self-hosted
 #    runs-on: ubuntu-18.04
+
     steps:
       - uses: actions/checkout@v2
       - run: echo $NODE_TLS_REJECT_UNAUTHORIZED
