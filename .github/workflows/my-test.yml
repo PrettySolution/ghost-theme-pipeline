@@ -10,7 +10,7 @@ jobs:
     job_1:
         environment:
             name: teta3
-            url: theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN
+            url: ${{theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN}}
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
