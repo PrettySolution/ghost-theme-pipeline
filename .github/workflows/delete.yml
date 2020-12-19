@@ -1,5 +1,8 @@
-name: my-test
-on: [pull_request]
+name: delete
+on:
+    pull_request:
+        types: [closed]
+
 jobs:
     my-test:
         runs-on: self-hosted
