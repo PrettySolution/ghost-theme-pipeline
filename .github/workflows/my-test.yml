@@ -25,5 +25,6 @@ jobs:
         runs-on: self-hosted
         needs: set_env
         steps:
-            - run: echo ${{github.ref}}
+            - run: echo ${{toJson(github.ref)}}
+            - run: echo ${{needs.set_env.outputs.url_output}}
 
