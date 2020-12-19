@@ -8,5 +8,6 @@ jobs:
         runs-on: self-hosted
         steps:
             - run: echo london-$GITHUB_HEAD_REF-${GITHUB_SHA::8}-pr$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-to-$GITHUB_BASE_REF
-            - run: echo ${{secrets.ENV_NAME}} > test.txt && cat test.txt
+            - run: echo ${{secrets.ENV_NAME}}
+            - run: echo '::add-mask name=TEST_ENV::here-it-is'
 
