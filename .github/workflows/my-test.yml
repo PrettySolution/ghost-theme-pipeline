@@ -31,4 +31,4 @@ jobs:
     job_3:
         runs-on: self-hosted
         steps:
-            - run: echo ${{toJson(github.ref)}}
+            - run: echo ${{toJson(github.ref##*/)}}
