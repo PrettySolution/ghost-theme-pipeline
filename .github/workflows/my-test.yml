@@ -16,9 +16,9 @@ jobs:
               run: echo "::set-output name=test::theme-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-london.$DOMAIN"
 
     job_2:
-        environment: ${{job_1.outputs.output_1}}
+#        environment: ${{jobs.job_1.outputs.output_1}}
         runs-on: self-hosted
         needs: job_1
         steps:
-            - run: echo ${{needs.job_1.outputs.output_1}}
+            - run: echo ${{jobs.job_1.outputs.output_1}}
 
