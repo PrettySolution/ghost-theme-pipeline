@@ -38,9 +38,8 @@ jobs:
             - run: echo $RELEASE_REF
 
     job_4:
-        environment: testing
         runs-on: self-hosted
         needs: job_3
         steps:
-            - run: echo "HI"
+            - run: echo $RELEASE_REF
 
