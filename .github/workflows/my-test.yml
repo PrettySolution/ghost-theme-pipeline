@@ -8,9 +8,7 @@ env:
     DOMAIN: airlan.cv.ua
 jobs:
     job_1:
-        environment:
-            name: teta3
-            url: ${{steps.step_1.outputs.test}}
+        environment: ${{ secrets.GHOST_ADMIN_API_KEY }}
         runs-on: self-hosted
         outputs:
             output_1: ${{ steps.step_1.outputs.test }}
