@@ -4,5 +4,5 @@ jobs:
     my-test:
         runs-on: self-hosted
         steps:
-            - run: echo $GITHUB_HEAD_REF-${GITHUB_SHA::8}-pr$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+            - run: echo london-$GITHUB_HEAD_REF-${GITHUB_SHA::8}-pr$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')-to-$GITHUB_BASE_REF
 
