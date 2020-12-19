@@ -21,7 +21,7 @@ jobs:
     job_2:
         environment:
             name: teta4
-            url: ${{needs.set_env.outputs.env_url_output}}
+            url: ${{(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')}}
         runs-on: self-hosted
         needs: set_env
         steps:
