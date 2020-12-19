@@ -3,7 +3,7 @@ name: my-test
 on:
     push:
         branches:
-            - '!*'
+            - 'master'
         tags:
             - '*'
 
