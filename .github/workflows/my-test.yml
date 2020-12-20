@@ -27,17 +27,27 @@ jobs:
 #        steps:
 #            - run: echo ${{toJson(github.ref)}}
 #            - run: echo ${{needs.set_env.outputs.url_output}}
-
     job_3:
         runs-on: self-hosted
-        environment:
-            name: testing
-            url: ${{env.RELEASE_URL}}
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
             - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
-            - run: echo $RELEASE_V
-            - run: echo $RELEASE_URL
+            - uses: actions/checkout@v2
+            - run: microk8s.helm3 upgrade -i my-ghost-testing my-ghost --set release_ref=RELEASE_V,ingress_url=RELEASE_URL,ghost_env=testing
 
-
+    job_4:
+        runs-on: self-hosted
+        environment:
+            name: testing
+            url: ${{ env.RELEASE_URL }}
+        steps:
+            - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
+            - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
+            - uses: actions/checkout@v2
+            - name: Deploy Ghost Theme
+              uses: TryGhost/action-deploy-theme@v1.4.0
+              with:
+                  api-url: ${{ env.RELEASE_URL}}
+                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}

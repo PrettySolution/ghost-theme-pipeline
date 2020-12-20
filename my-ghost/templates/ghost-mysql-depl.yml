@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{.Values.ghost_env}}
+  name: ghost-mysql-deployment-{{.Values.release_ref}}
+  labels:
+    app: ghost-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost-mysql
+  template:
+    metadata:
+      labels:
+        app: ghost-mysql
+    spec:
+      containers:
+        - name: ghost-mysql
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-secret
+                  key: database__connection__password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: ghost-configmap-{{.Values.release_ref}}
+                  key: database__connection__database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-secret
+                  key: database__connection__user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-secret
+                  key: database__connection__password
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/ghost.sql
+              name: ghost-sql
+      volumes:
+        - name: ghost-sql
+          hostPath:
+            path: /home/dmx/ghost.sql
+            type: FileOrCreate
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{.Values.ghost_env}}
+  name: ghost-mysql-service-{{.Values.release_ref}}
+spec:
+  selector:  # to connect to Pod through label
+    app: ghost-mysql
+  ports:
+    - port: 3306  # service port
+      protocol: TCP
+      targetPort: 3306  # container port

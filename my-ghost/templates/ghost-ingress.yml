@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{.Values.ghost_env}}
+  name: ghost-ingress-{{.Values.release_ref}}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+    - hosts:
+        - {{.Values.ingress_url}}
+      secretName: ghost-tls-secret-{{.Values.release_ref}}
+  rules:
+    - host: {{.Values.ingress_url}}
+      http:
+        paths:
+          - backend:
+              serviceName: ghost-service-{{.Values.release_ref}}
+              servicePort: 80
