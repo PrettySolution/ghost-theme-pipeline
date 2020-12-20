@@ -28,7 +28,7 @@ jobs:
 #        steps:
 #            - run: echo ${{toJson(github.ref)}}
 #            - run: echo ${{needs.set_env.outputs.url_output}}
-    test-k8s-env:
+    provision-test-k8s-env:
         runs-on: self-hosted
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
@@ -39,7 +39,7 @@ jobs:
 
     deploy-to-test-env:
         runs-on: self-hosted
-        needs: test-k8s-env
+        needs: provision-test-k8s-env
         environment:
             name: testing
             url: ${{ env.RELEASE_URL }}
