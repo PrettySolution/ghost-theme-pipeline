@@ -1,4 +1,4 @@
-name: my-env_url
+name: Testing tag
 #on: [pull_request]
 on:
     push:
