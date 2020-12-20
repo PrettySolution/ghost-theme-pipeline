@@ -39,6 +39,7 @@ jobs:
 
     job_4:
         runs-on: self-hosted
+        needs: job_3
         environment:
             name: testing
             url: ${{ env.RELEASE_URL }}
