@@ -1,6 +1,6 @@
 name: deploying to staging
 on:
-    pull-request:
+    pull_request:
         tags:
             - 'v.*'
 env:
