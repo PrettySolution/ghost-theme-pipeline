@@ -46,7 +46,41 @@ jobs:
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
-            - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=testing-theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
+            - uses: actions/checkout@v2
+            - name: Deploy Ghost Theme
+              uses: TryGhost/action-deploy-theme@v1.4.0
+              with:
+                  api-url: https://${{ env.RELEASE_URL}}
+                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
+    job_5:
+        runs-on: self-hosted
+        needs: job_4
+        environment:
+            name: staging
+            url: ${{ env.RELEASE_URL }}
+        steps:
+            - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
+            - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=staging-london.$DOMAIN" >> $GITHUB_ENV
+            - uses: actions/checkout@v2
+            - name: Deploy Ghost Theme
+              uses: TryGhost/action-deploy-theme@v1.4.0
+              with:
+                  api-url: https://${{ env.RELEASE_URL}}
+                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
+    job_6:
+        runs-on: self-hosted
+        needs: job_5
+        environment:
+            name: production
+            url: ${{ env.RELEASE_URL }}
+        steps:
+            - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
+            - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=prod-london.$DOMAIN" >> $GITHUB_ENV
             - uses: actions/checkout@v2
             - name: Deploy Ghost Theme
               uses: TryGhost/action-deploy-theme@v1.4.0

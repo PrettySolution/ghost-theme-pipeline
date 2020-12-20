@@ -1,3 +1,4 @@
 ghost_env: testing
 ingress_url: theme-v.55-london.airlan.cv.ua
 release_ref: v-1
+cert_issuer: letsencrypt-staging

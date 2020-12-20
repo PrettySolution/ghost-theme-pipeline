@@ -4,8 +4,8 @@ metadata:
   namespace: {{.Values.ghost_env}}
   name: ghost-ingress-{{.Values.release_ref}}
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: {{.Values.cert_issuer}}
 spec:
   tls:
     - hosts:

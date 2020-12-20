@@ -44,12 +44,16 @@ spec:
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d/ghost.sql
               name: ghost-sql
+      #        name: mysql-initdb
       volumes:
         - name: ghost-sql
           hostPath:
             path: /home/dmx/ghost.sql
             type: FileOrCreate
-
+      #volumes:
+      #  - name: mysql-initdb
+      #    configMap:
+      #      name: mysql-initdb-config-{{.Values.release_ref}}
 ---
 apiVersion: v1
 kind: Service
@@ -63,3 +67,12 @@ spec:
     - port: 3306  # service port
       protocol: TCP
       targetPort: 3306  # container port
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{.Values.ghost_env}}
+  name: mysql-initdb-config-{{.Values.release_ref}}
+data:
+  #initdb.sql: |
+  initdb.sql: |
