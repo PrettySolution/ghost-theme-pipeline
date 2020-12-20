@@ -76,12 +76,12 @@ jobs:
         needs: deploy-to-staging-env
         environment:
             name: production
-            url: https://prod-london.$DOMAIN
+            url: https://prod-london.${{env.DOMAIN}}
         steps:
             - uses: actions/checkout@v2
             - name: Deploy Ghost Theme
               uses: TryGhost/action-deploy-theme@v1.4.0
               with:
-                  api-url: https://prod-london.$DOMAIN
+                  api-url: https://prod-london.${{env.DOMAIN}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
 
