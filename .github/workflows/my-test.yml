@@ -28,18 +28,18 @@ jobs:
 #        steps:
 #            - run: echo ${{toJson(github.ref)}}
 #            - run: echo ${{needs.set_env.outputs.url_output}}
-    job_3:
+    test-k8s-env:
         runs-on: self-hosted
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
-            - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=testing-theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
             - uses: actions/checkout@v2
             - run: microk8s.helm3 upgrade -i my-ghost-testing my-ghost --set release_ref=$RELEASE_V,ingress_url=$RELEASE_URL,ghost_env=testing
 
-    job_4:
+    deploy-to-test-env:
         runs-on: self-hosted
-        needs: job_3
+        needs: test-k8s-env
         environment:
             name: testing
             url: ${{ env.RELEASE_URL }}
@@ -54,9 +54,9 @@ jobs:
                   api-url: https://${{ env.RELEASE_URL}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
 
-    job_5:
+    deploy-to-staging-env:
         runs-on: self-hosted
-        needs: job_4
+        needs: deploy-to-test-env
         environment:
             name: staging
             url: ${{ env.RELEASE_URL }}
@@ -71,9 +71,9 @@ jobs:
                   api-url: https://${{ env.RELEASE_URL}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
 
-    job_6:
+    deploy-to-prod-env:
         runs-on: self-hosted
-        needs: job_5
+        needs: deploy-to-staging-env
         environment:
             name: production
             url: ${{ env.RELEASE_URL }}
