@@ -1,7 +1,6 @@
-name: my-env_url
-#on: [pull_request]
+name: deploying to staging
 on:
-    pull-requets:
+    pull-request:
         tags:
             - 'v.*'
 env:
