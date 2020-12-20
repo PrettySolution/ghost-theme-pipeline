@@ -49,5 +49,5 @@ jobs:
             - name: Deploy Ghost Theme
               uses: TryGhost/action-deploy-theme@v1.4.0
               with:
-                  api-url: ${{ env.RELEASE_URL}}
+                  api-url: https://${{ env.RELEASE_URL}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
