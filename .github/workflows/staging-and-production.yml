@@ -1,6 +1,6 @@
 name: deploying to staging
 on:
-    pull-request:
+    pull_request:
         tags:
             - 'v.*'
 env:
@@ -36,4 +36,3 @@ jobs:
               with:
                   api-url: https://prod-london.${{env.DOMAIN}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
-
