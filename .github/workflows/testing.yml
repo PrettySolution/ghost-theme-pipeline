@@ -1,12 +1,10 @@
 name: Testing tag
-#on: [pull_request]
-
 on:
     push:
-        tags:
-            - 'v.*'
         branches:
             - '!master'
+        tags:
+            - 'v.*'
 env:
     NODE_TLS_REJECT_UNAUTHORIZED: 0
     DOMAIN: airlan.cv.ua
