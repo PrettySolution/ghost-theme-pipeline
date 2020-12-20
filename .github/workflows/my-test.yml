@@ -34,7 +34,7 @@ jobs:
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
             - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
             - uses: actions/checkout@v2
-            - run: microk8s.helm3 upgrade -i my-ghost-testing my-ghost --set release_ref=RELEASE_V,ingress_url=RELEASE_URL,ghost_env=testing
+            - run: microk8s.helm3 upgrade -i my-ghost-testing my-ghost --set release_ref=$RELEASE_V,ingress_url=$RELEASE_URL,ghost_env=testing
 
     job_4:
         runs-on: self-hosted
