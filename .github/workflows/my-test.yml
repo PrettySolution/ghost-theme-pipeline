@@ -31,8 +31,8 @@ jobs:
     reset-k8s-test-env:
         runs-on: self-hosted
         environment:
-            name: reset-test-env
-            url: https://airlan.cv.ua
+            name: reset-k8s-test-env
+            url: https://${{ env.RELEASE_URL }}
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
