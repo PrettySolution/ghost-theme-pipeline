@@ -28,8 +28,11 @@ jobs:
 #        steps:
 #            - run: echo ${{toJson(github.ref)}}
 #            - run: echo ${{needs.set_env.outputs.url_output}}
-    provision-test-k8s-env:
+    reset-k8s-test-env:
         runs-on: self-hosted
+        environment:
+            name: reset-test-env
+            url: https://airlan.cv.ua
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
@@ -39,7 +42,7 @@ jobs:
 
     deploy-to-test-env:
         runs-on: self-hosted
-        needs: provision-test-k8s-env
+        needs: reset-k8s-test-env
         environment:
             name: testing
             url: https://${{ env.RELEASE_URL }}
