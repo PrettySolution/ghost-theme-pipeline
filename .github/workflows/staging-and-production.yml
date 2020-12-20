@@ -3,10 +3,7 @@ on:
     pull_request:
         branches:
             - 'master'
-#        tags:
-#            - 'v.*'
 env:
-    NODE_TLS_REJECT_UNAUTHORIZED: 0
     DOMAIN: airlan.cv.ua
 jobs:
     deploy-to-staging-env:
@@ -23,19 +20,5 @@ jobs:
               uses: TryGhost/action-deploy-theme@v1.4.0
               with:
                   api-url: https://${{ env.RELEASE_URL}}
-                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
-
-    deploy-to-prod-env:
-        runs-on: self-hosted
-        needs: deploy-to-staging-env
-        environment:
-            name: production
-            url: https://prod-london.${{env.DOMAIN}}
-        steps:
-            - uses: actions/checkout@v2
-            - name: Deploy Ghost Theme
-              uses: TryGhost/action-deploy-theme@v1.4.0
-              with:
-                  api-url: https://prod-london.${{env.DOMAIN}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
 
