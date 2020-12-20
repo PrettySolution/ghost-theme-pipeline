@@ -42,7 +42,7 @@ jobs:
         needs: provision-test-k8s-env
         environment:
             name: testing
-            url: ${{ env.RELEASE_URL }}
+            url: https://${{ env.RELEASE_URL }}
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
@@ -59,13 +59,12 @@ jobs:
         needs: deploy-to-test-env
         environment:
             name: staging
-            url: ${{ env.RELEASE_URL }}
+            url: https://${{ env.RELEASE_URL }}
         steps:
             - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
             - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
             - run: echo "RELEASE_URL=staging-london.$DOMAIN" >> $GITHUB_ENV
             - uses: actions/checkout@v2
-            - run: sleel 10
             - name: Deploy Ghost Theme
               uses: TryGhost/action-deploy-theme@v1.4.0
               with:
