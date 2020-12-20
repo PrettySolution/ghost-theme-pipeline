@@ -3,6 +3,7 @@ on:
     pull_request:
         tags:
             - 'v.*'
+
 env:
     NODE_TLS_REJECT_UNAUTHORIZED: 0
     DOMAIN: airlan.cv.ua
@@ -36,3 +37,4 @@ jobs:
               with:
                   api-url: https://prod-london.${{env.DOMAIN}}
                   api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
