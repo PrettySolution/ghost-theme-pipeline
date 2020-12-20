@@ -1,0 +1,40 @@
+name: my-env_url
+#on: [pull_request]
+on:
+    pull-requets:
+        tags:
+            - 'v.*'
+env:
+    NODE_TLS_REJECT_UNAUTHORIZED: 0
+    DOMAIN: airlan.cv.ua
+jobs:
+    deploy-to-staging-env:
+        runs-on: self-hosted
+        environment:
+            name: staging
+            url: https://${{ env.RELEASE_URL }}
+        steps:
+            - run: echo "TEMP_V=${GITHUB_REF##*/}" >> $GITHUB_ENV
+            - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
+            - run: echo "RELEASE_URL=staging-london.$DOMAIN" >> $GITHUB_ENV
+            - uses: actions/checkout@v2
+            - name: Deploy Ghost Theme
+              uses: TryGhost/action-deploy-theme@v1.4.0
+              with:
+                  api-url: https://${{ env.RELEASE_URL}}
+                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
+    deploy-to-prod-env:
+        runs-on: self-hosted
+        needs: deploy-to-staging-env
+        environment:
+            name: production
+            url: https://prod-london.${{env.DOMAIN}}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Deploy Ghost Theme
+              uses: TryGhost/action-deploy-theme@v1.4.0
+              with:
+                  api-url: https://prod-london.${{env.DOMAIN}}
+                  api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
