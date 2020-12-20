@@ -35,7 +35,7 @@ jobs:
             url: ${{env.RELEASE_URL}}
         steps:
             - run: echo "TEMP_V=theme-${GITHUB_REF##*/}-london.$DOMAIN" >> $GITHUB_ENV
-            - run: echo "RELEASE_V=${TEMP_V//./-} >> $GITHUB_ENV
+            - run: echo "RELEASE_V=${TEMP_V//./-}" >> $GITHUB_ENV
             - run: echo "RELEASE_URL=theme-$RELEASE_V-london.$DOMAIN" >> $GITHUB_ENV
             - run: echo $RELEASE_V
             - run: echo $RELEASE_URL
